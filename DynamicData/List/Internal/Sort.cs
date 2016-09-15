@@ -17,7 +17,6 @@ namespace DynamicData.Internal
         private readonly IObservable<Unit> _resort;
         private readonly IObservable<IComparer<T>> _comparerObservable;
 
-
         public Sort([NotNull] IObservable<IChangeSet<T>> source, 
             [NotNull] IComparer<T> comparer, SortOptions sortOptions,
             IObservable<Unit> resort, 

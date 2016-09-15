@@ -598,6 +598,20 @@ namespace DynamicData
             }
         }
 
+        internal static void EnsureCapacityFor<T>(this IEnumerable<T> source, IEnumerable<T> items)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (source is List<T>)
+            {
+                var list = (List<T>)source;
+                list.Capacity = list.Count ;
+            }
+            else if (source is ISupportsCapcity)
+            {
+                var list = (ISupportsCapcity)source;
+                list.Capacity = items.Count();
+            }
+        }
 
         #endregion
     }

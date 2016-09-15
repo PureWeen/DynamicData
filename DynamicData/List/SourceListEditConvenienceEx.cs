@@ -19,14 +19,18 @@ namespace DynamicData
         /// <param name="source">The source.</param>
         /// <param name="alltems"></param>
         /// <param name="equalityComparer">The equality comparer used to determine whether an item has changed</param>
+        /// <param name="preserveOrder">Should the diff preserve the order of the items</param>
+        /// <param name="resetThreshold">When preserving order, the number of </param>
         /// <exception cref="System.ArgumentNullException">source</exception>
         public static void EditDiff<T>([NotNull] this ISourceList<T> source,
             [NotNull] IEnumerable<T> alltems,
-            IEqualityComparer<T> equalityComparer = null)
+            IEqualityComparer<T> equalityComparer = null,
+            bool preserveOrder = false,
+            int resetThreshold = -1)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (alltems == null) throw new ArgumentNullException(nameof(alltems));
-            var editDiff = new EditDiff<T>(source, equalityComparer);
+            var editDiff = new EditDiff<T>(source, equalityComparer, preserveOrder);
             editDiff.Edit(alltems);
         }
 
