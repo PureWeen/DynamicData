@@ -10,7 +10,7 @@ namespace DynamicData.Tests.Binding
     
     public class BindChangeSetFixture: IDisposable
     {
-        private readonly ObservableCollectionExtended<Person> _collection = new ObservableCollectionExtended<Person>();
+        private readonly ObservableCollectionExtended<Person> _collection;
         private readonly ISourceCache<Person, string> _source;
         private readonly IDisposable _binder;
         private readonly RandomPersonGenerator _generator = new RandomPersonGenerator();

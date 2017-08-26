@@ -1,5 +1,3 @@
-#if P_LINQ
-
 using System;
 using System.Linq;
 using DynamicData.PLinq;
@@ -9,8 +7,7 @@ using Xunit;
 
 namespace DynamicData.Tests.Cache
 {
-
-    public class FilterParallelFixture: IDisposable
+        public class FilterParallelFixture: IDisposable
     {
         private readonly ISourceCache<Person, string> _source;
         private readonly ChangeSetAggregator<Person, string> _results;
@@ -195,4 +192,4 @@ namespace DynamicData.Tests.Cache
         }
     }
 }
-#endif
+

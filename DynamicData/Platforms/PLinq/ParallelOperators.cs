@@ -5,7 +5,7 @@ using DynamicData.Cache.Internal;
 using DynamicData.Kernel;
 
 // ReSharper disable once CheckNamespace
-#if P_LINQ
+
 namespace DynamicData.PLinq
 {
     /// <summary>
@@ -288,4 +288,3 @@ namespace DynamicData.PLinq
     }
 }
 
-#endif

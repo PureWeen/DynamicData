@@ -1,4 +1,4 @@
-#if P_LINQ
+
 
 // ReSharper disable once CheckNamespace
 namespace DynamicData.PLinq
@@ -24,4 +24,3 @@ namespace DynamicData.PLinq
         Ordered
     }
 }
-#endif

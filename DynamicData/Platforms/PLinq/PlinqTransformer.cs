@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DynamicData.Kernel;
 
-#if P_LINQ
 // ReSharper disable once CheckNamespace
 namespace DynamicData.PLinq
 {
@@ -197,5 +196,3 @@ namespace DynamicData.PLinq
         }
     }
 }
-#endif
-
