@@ -13,7 +13,7 @@ namespace DynamicData.PLinq
     /// </summary>
     public static class ParallelOperators
     {
-#region Subscribe Many
+        #region Subscribe Many
 
         /// <summary>
         /// Subscribes to each item when it is added to the stream and unsubcribes when it is removed.  All items will be unsubscribed when the stream is disposed
@@ -31,8 +31,8 @@ namespace DynamicData.PLinq
         /// Subscribes to each item when it is added or updates and unsubcribes when it is removed
         /// </remarks>
         public static IObservable<IChangeSet<TObject, TKey>> SubscribeMany<TObject, TKey>(this IObservable<IChangeSet<TObject, TKey>> source,
-                                                                                          Func<TObject, IDisposable> subscriptionFactory, 
-                                                                                          ParallelisationOptions parallelisationOptions)
+            Func<TObject, IDisposable> subscriptionFactory,
+            ParallelisationOptions parallelisationOptions)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (subscriptionFactory == null) throw new ArgumentNullException(nameof(subscriptionFactory));
@@ -43,7 +43,7 @@ namespace DynamicData.PLinq
                 {
                     var published = source.Publish();
                     var subscriptions = published
-                        .Transform((t, k) => new SubscriptionContainer<TObject, TKey>(t, k,(a,b)=> subscriptionFactory(a)), parallelisationOptions)
+                        .Transform((t, k) => new SubscriptionContainer<TObject, TKey>(t, k, (a, b) => subscriptionFactory(a)), parallelisationOptions)
                         .DisposeMany()
                         .Subscribe();
 
@@ -70,7 +70,7 @@ namespace DynamicData.PLinq
         /// Subscribes to each item when it is added or updates and unsubcribes when it is removed
         /// </remarks>
         public static IObservable<IChangeSet<TObject, TKey>> SubscribeMany<TObject, TKey>(this IObservable<IChangeSet<TObject, TKey>> source,
-                                                                                          Func<TObject, TKey, IDisposable> subscriptionFactory, ParallelisationOptions parallelisationOptions)
+            Func<TObject, TKey, IDisposable> subscriptionFactory, ParallelisationOptions parallelisationOptions)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (subscriptionFactory == null) throw new ArgumentNullException(nameof(subscriptionFactory));
@@ -97,9 +97,9 @@ namespace DynamicData.PLinq
                 });
         }
 
-#endregion
+        #endregion
 
-#region  Transform
+        #region  Transform
 
         /// <summary>
         /// Projects each update item to a new form using the specified transform function
@@ -117,8 +117,8 @@ namespace DynamicData.PLinq
         /// or
         /// transformFactory</exception>
         public static IObservable<IChangeSet<TDestination, TKey>> Transform<TDestination, TSource, TKey>(this IObservable<IChangeSet<TSource, TKey>> source,
-                                                                                                         Func<TSource, TKey, TDestination> transformFactory,
-                                                                                                         ParallelisationOptions parallelisationOptions)
+            Func<TSource, TKey, TDestination> transformFactory,
+            ParallelisationOptions parallelisationOptions)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (transformFactory == null) throw new ArgumentNullException(nameof(transformFactory));
@@ -152,8 +152,8 @@ namespace DynamicData.PLinq
         /// or
         /// transformFactory</exception>
         public static IObservable<IChangeSet<TDestination, TKey>> Transform<TDestination, TSource, TKey>(this IObservable<IChangeSet<TSource, TKey>> source,
-                                                                                                         Func<TSource, TDestination> transformFactory,
-                                                                                                         ParallelisationOptions parallelisationOptions)
+            Func<TSource, TDestination> transformFactory,
+            ParallelisationOptions parallelisationOptions)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (transformFactory == null) throw new ArgumentNullException(nameof(transformFactory));
@@ -170,9 +170,9 @@ namespace DynamicData.PLinq
                 });
         }
 
-#endregion
+        #endregion
 
-#region Transform safe
+        #region Transform safe
 
         /// <summary>
         /// Projects each update item to a new form using the specified transform function,
@@ -194,9 +194,9 @@ namespace DynamicData.PLinq
         /// or
         /// transformFactory</exception>
         public static IObservable<IChangeSet<TDestination, TKey>> TransformSafe<TDestination, TSource, TKey>(this IObservable<IChangeSet<TSource, TKey>> source,
-                                                                                                             Func<TSource, TDestination> transformFactory,
-                                                                                                             Action<Error<TSource, TKey>> errorHandler,
-                                                                                                             ParallelisationOptions parallelisationOptions)
+            Func<TSource, TDestination> transformFactory,
+            Action<Error<TSource, TKey>> errorHandler,
+            ParallelisationOptions parallelisationOptions)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (transformFactory == null) throw new ArgumentNullException(nameof(transformFactory));
@@ -234,9 +234,9 @@ namespace DynamicData.PLinq
         /// or
         /// transformFactory</exception>
         public static IObservable<IChangeSet<TDestination, TKey>> TransformSafe<TDestination, TSource, TKey>(this IObservable<IChangeSet<TSource, TKey>> source,
-                                                                                                             Func<TSource, TKey, TDestination> transformFactory,
-                                                                                                             Action<Error<TSource, TKey>> errorHandler,
-                                                                                                             ParallelisationOptions parallelisationOptions)
+            Func<TSource, TKey, TDestination> transformFactory,
+            Action<Error<TSource, TKey>> errorHandler,
+            ParallelisationOptions parallelisationOptions)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (transformFactory == null) throw new ArgumentNullException(nameof(transformFactory));
@@ -253,9 +253,9 @@ namespace DynamicData.PLinq
                 });
         }
 
-#endregion
+        #endregion
 
-#region Filter
+        #region Filter
 
         /// <summary>
         /// Filters the stream using the specified predicate
@@ -284,7 +284,7 @@ namespace DynamicData.PLinq
                 });
         }
 
-#endregion
+        #endregion
     }
 }
 
