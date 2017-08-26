@@ -3,14 +3,15 @@ using System.Linq;
 using DynamicData.Tests.Domain;
 using FluentAssertions;
 using Xunit;
+using DynamicData.PLinq;
 
 namespace DynamicData.Tests.Cache
 {
 
     public class TransformFixturParallel : IDisposable
     {
-        private ISourceCache<Person, string> _source;
-        private ChangeSetAggregator<PersonWithGender, string> _results;
+        private readonly ISourceCache<Person, string> _source;
+        private readonly ChangeSetAggregator<PersonWithGender, string> _results;
 
         private readonly Func<Person, PersonWithGender> _transformFactory = p =>
         {
@@ -22,7 +23,7 @@ namespace DynamicData.Tests.Cache
         {
             _source = new SourceCache<Person, string>(p => p.Name);
 
-            var pTransform = _source.Connect().Transform(_transformFactory);
+            var pTransform = _source.Connect().Transform(_transformFactory, new ParallelisationOptions(ParallelType.Ordered));
             _results = new ChangeSetAggregator<PersonWithGender, string>(pTransform);
         }
 

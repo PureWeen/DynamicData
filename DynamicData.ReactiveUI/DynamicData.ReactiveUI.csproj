@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard1.1;net45;net46</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DynamicData\DynamicData.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="reactiveui" Version="8.0.0-alpha0057" />
+  </ItemGroup>
+</Project>
