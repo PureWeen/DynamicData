@@ -139,4 +139,4 @@
   - cmd: >-
       cd %APPVEYOR_BUILD_FOLDER%
 
-      dotnet --configuration Release --no-build
+      dotnet test --configuration Release --no-build
