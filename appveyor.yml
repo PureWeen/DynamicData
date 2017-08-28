@@ -128,8 +128,15 @@
       
       appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%\Source\DynamicData\bin\Release\DynamicData.%APPVEYOR_BUILD_VERSION%.symbols.nupkg
 
-      appveyor PushArtifact  %APPVEYOR_BUILD_FOLDER%\**\*.nupkg
+      appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%\Source\DynamicData.ReactiveUI\bin\Release\DynamicData.ReactiveUI.%APPVEYOR_BUILD_VERSION%.nupkg
+      
+      appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%\Source\DynamicData.ReactiveUI\bin\Release\DynamicData.ReactiveUI.%APPVEYOR_BUILD_VERSION%.symbols.nupkg
+
+
   test: off
   # Hangs indefinitely and I do not know why as the same command works locally
-  # test_script:
-  # - cmd: dotnet test DynamicData.Tests\DynamicData.Tests.csproj --configuration Release --no-build
+  test_script:
+  - cmd: >-
+      cd %APPVEYOR_BUILD_FOLDER%
+
+      dotnet --configuration Release --no-build
