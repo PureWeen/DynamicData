@@ -139,4 +139,4 @@
   - cmd: >-
       cd %APPVEYOR_BUILD_FOLDER%
 
-      dotnet test --configuration Release --no-build
+      dotnet test Source\DynamicData.sln --configuration Release --no-build
