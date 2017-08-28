@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using DynamicData.ReactiveUI.Tests.Domain;
+using FluentAssertions;
 using ReactiveUI;
 using Xunit;
 
@@ -12,13 +13,14 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
         private readonly ISourceCache<Person, string> _source;
         private readonly IDisposable _binder;
         private readonly RandomPersonGenerator _generator = new RandomPersonGenerator();
+        private readonly ReactiveList<Person> _collection;
 
 
         public BindChangeSetFixture()
         {
-            var collection = new ReactiveList<Person>();
+            _collection = new ReactiveList<Person>();
             _source = new SourceCache<Person, string>(p => p.Name);
-            _binder = _source.Connect().Bind(collection).Subscribe();
+            _binder = _source.Connect().Bind(_collection).Subscribe();
         }
 
         public void Dispose()
@@ -27,13 +29,15 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
             _source.Dispose();
         }
 
+
         [Fact]
         public void AddToSourceAddsToDestination()
         {
             var person = new Person("Adult1", 50);
             _source.AddOrUpdate(person);
-            //Assert.AreEqual(1, _collection.Count, "Should be 1 item in the collection");
-            //Assert.AreEqual(person, _collection.First(), "Should be same person");
+
+            _collection.Count.Should().Be(1, "Should be 1 item in the collection");
+            _collection.First().Should().Be(person, "Should be same person");
         }
 
         [Fact]
@@ -43,17 +47,19 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
             var personUpdated = new Person("Adult1", 51);
             _source.AddOrUpdate(person);
             _source.AddOrUpdate(personUpdated);
-            //Assert.AreEqual(1, _collection.Count, "Should be 1 item in the collection");
-            //Assert.AreEqual(personUpdated, _collection.First(), "Should be updated person");
+
+            _collection.Count.Should().Be(1, "Should be 1 item in the collection");
+            _collection.First().Should().Be(personUpdated, "Should be updated person");
         }
-        
+
         [Fact]
         public void RemoveSourceRemovesFromTheDestination()
         {
             var person = new Person("Adult1", 50);
             _source.AddOrUpdate(person);
             _source.Remove(person);
-            //Assert.AreEqual(0, _collection.Count, "Should be 1 item in the collection");
+
+            _collection.Count.Should().Be(0, "Should be 1 item in the collection");
         }
 
         [Fact]
@@ -61,8 +67,9 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
         {
             var people = _generator.Take(100).ToList();
             _source.AddOrUpdate(people);
-            //Assert.AreEqual(100, _collection.Count, "Should be 100 items in the collection");
-           // CollectionAssert.AreEquivalent(people, _collection, "Collections should be equivalent");
+
+            _collection.Count.Should().Be(100, "Should be 100 items in the collection");
+            _collection.ShouldAllBeEquivalentTo(_collection, "Collections should be equivalent");
         }
 
         [Fact]
@@ -71,7 +78,7 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
             var people = _generator.Take(100).ToList();
             _source.AddOrUpdate(people);
             _source.Clear();
-            //Assert.AreEqual(0, _collection.Count, "Should be 100 items in the collection");
+            _collection.Count.Should().Be(0, "Should be 100 items in the collection");
         }
 
     }

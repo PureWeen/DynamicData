@@ -12,7 +12,7 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
     {
         private readonly ReactiveList<Person> _collection;
         private readonly SourceList<Person> _source;
-        private IDisposable _binder;
+        private readonly IDisposable _binder;
         private static readonly RandomPersonGenerator _generator = new RandomPersonGenerator();
 
         public BindFromObservableListFixture()
@@ -28,14 +28,15 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
             _source.Dispose();
         }
 
+
         [Fact]
         public void AddToSourceAddsToDestination()
         {
             var person = new Person("Adult1", 50);
             _source.Add(person);
 
-            _collection.Count.Should().Be(1);
-            _collection.First().Should().Be(person);
+            _collection.Count.Should().Be(1, "Should be 1 item in the collection");
+            _collection.First().Should().Be(person, "Should be same person");
         }
 
         [Fact]
@@ -46,10 +47,9 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
             _source.Add(person);
             _source.Replace(person, personUpdated);
 
-            ////Assert.AreEqual(1, _collection.Count, "Should be 1 item in the collection");
-            //Assert.AreEqual(personUpdated, _collection.First(), "Should be updated person");
+            _collection.Count.Should().Be(1, "Should be 1 item in the collection");
+            _collection.First().Should().Be(personUpdated, "Should be updated person");
         }
-
 
         [Fact]
         public void RemoveSourceRemovesFromTheDestination()
@@ -58,7 +58,7 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
             _source.Add(person);
             _source.Remove(person);
 
-            //Assert.AreEqual(0, _collection.Count, "Should be 1 item in the collection");
+            _collection.Count.Should().Be(0, "Should be 1 item in the collection");
         }
 
         [Fact]
@@ -67,24 +67,8 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
             var people = _generator.Take(100).ToList();
             _source.AddRange(people);
 
-            //Assert.AreEqual(100, _collection.Count, "Should be 100 items in the collection");
-           // CollectionAssert.AreEquivalent(people, _collection, "Collections should be equivalent");
-        }
-
-        [Fact]
-        public void InsertRange()
-        {
-            var people = _generator.Take(100).ToList();
-            _source.AddRange(people);
-
-            var morePeople = _generator.Take(100).ToList();
-            _source.InsertRange(morePeople,50);
-
-
-
-
-            //Assert.AreEqual(200, _collection.Count, "Should be 200 items in the collection");
-           // CollectionAssert.AreEquivalent(_collection.Skip(50).Take(100), morePeople, "Collections should be equivalent");
+            _collection.Count.Should().Be(100, "Should be 100 items in the collection");
+            _collection.ShouldAllBeEquivalentTo(_collection, "Collections should be equivalent");
         }
 
         [Fact]
@@ -93,7 +77,7 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
             var people = _generator.Take(100).ToList();
             _source.AddRange(people);
             _source.Clear();
-            //Assert.AreEqual(0, _collection.Count, "Should be 100 items in the collection");
+            _collection.Count.Should().Be(0, "Should be 100 items in the collection");
         }
 
     }

@@ -127,6 +127,8 @@
       appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%\Source\DynamicData\bin\Release\DynamicData.%APPVEYOR_BUILD_VERSION%.nupkg
       
       appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%\Source\DynamicData\bin\Release\DynamicData.%APPVEYOR_BUILD_VERSION%.symbols.nupkg
+
+      appveyor PushArtifact  %APPVEYOR_BUILD_FOLDER%\**\*.nupkg
   test: off
   # Hangs indefinitely and I do not know why as the same command works locally
   # test_script:

@@ -6,12 +6,13 @@ using ReactiveUI;
 
 namespace DynamicData.ReactiveUI
 {
+    /// <summary>
+    /// Integration methods between dynamic data and reactive list
+    /// </summary>
     public static class DynamicDataEx
     {
-
-
         /// <summary>
-        /// Binds a clone of the observable changeset to the target ReactiveList
+        /// Binds the observable changeset to the target ReactiveList
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>

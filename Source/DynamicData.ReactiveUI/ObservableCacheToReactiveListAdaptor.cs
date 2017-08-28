@@ -24,8 +24,7 @@ namespace DynamicData.ReactiveUI
         /// <exception cref="System.ArgumentNullException">target</exception>
         public ObservableCacheToReactiveListAdaptor(ReactiveList<TObject> target, int resetThreshold = 50)
         {
-            if (target == null) throw new ArgumentNullException(nameof(target));
-            _target = target;
+            _target = target ?? throw new ArgumentNullException(nameof(target));
             _resetThreshold = resetThreshold;
         }
 

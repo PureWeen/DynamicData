@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net46;netcoreapp1.1;netcoreapp2.0</TargetFrameworks>
+    <TargetFramework>net46</TargetFramework>
     <NoWarn>$(NoWarn);CS0618</NoWarn>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -29,5 +29,5 @@
     <PackageReference Include="FluentAssertions" Version="4.19.3" />
     <PackageReference Include="Microsoft.Reactive.Testing" Version="3.1.1" />
   </ItemGroup>
-
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
