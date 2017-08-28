@@ -51,6 +51,17 @@ namespace DynamicData.Tests.Binding
         }
 
         [Fact]
+        public void Insert()
+        {
+            _collection.AddRange(Enumerable.Range(1, 10));
+            _collection.Insert(0,999);
+
+            _results.Messages.Count.Should().Be(11);
+            _results.Data.Count.Should().Be(11);
+            _results.Data.Items.First().Should().Be(999);
+        }
+
+        [Fact]
         public void Remove()
         {
             _collection.AddRange(Enumerable.Range(1, 10));
@@ -81,18 +92,6 @@ namespace DynamicData.Tests.Binding
 
         }
 
-        //[Fact]
-        //public void ResetFiresClearsAndAdds()
-        //{
-        //    _collection.AddRange(Enumerable.Range(1, 10));
-
-        //    _collection.Reset();
-        //    _results.Data.Items.ShouldAllBeEquivalentTo(_target);
-
-        //    var resetNotification = _results.Messages.Last();
-        //    resetNotification.Removes.Should().Be(10);
-        //    resetNotification.Adds.Should().Be(10);
-        //}
 
         private class TestObservableCollection<T> : ObservableCollection<T>
         {

@@ -13,9 +13,7 @@ namespace DynamicData.ReactiveUI.Tests.Fixtures
 		private readonly ReactiveList<Person> _collection;
 		private readonly ChangeSetAggregator<Person> _results;
 		private readonly RandomPersonGenerator _generator = new RandomPersonGenerator();
-
-
-
+        
 		public  ObservableCollectionToObservableChangeSetWithoutINdexFixture()
 		{
 			_collection = new ReactiveList<Person>();
